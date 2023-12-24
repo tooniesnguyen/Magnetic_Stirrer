@@ -2,7 +2,7 @@
 
 ## To do task
 - [x] Show number on led
-- [ ] Read value from potentiometer
+- [x] Read value from potentiometer
 - [ ] Control velocity from encoder
 
 ## Block diagram

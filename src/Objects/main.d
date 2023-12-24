@@ -7,3 +7,4 @@
 .\objects\main.o: D:\Micro\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\cmsis_armcc.h
 .\objects\main.o: D:\Micro\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmFunc.h
 .\objects\main.o: D:\Micro\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include\system_stm32f10x.h
+.\objects\main.o: D:\Micro\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
