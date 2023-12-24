@@ -1,7 +1,7 @@
 # Magnetic Stirrer
 
 ## To do task
-- [ ] Show number on led
+- [x] Show number on led
 - [ ] Read value from potentiometer
 - [ ] Control velocity from encoder
 
