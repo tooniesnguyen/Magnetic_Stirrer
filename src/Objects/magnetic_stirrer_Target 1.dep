@@ -1,5 +1,5 @@
 Dependencies for Project 'magnetic_stirrer', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x65888B3C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I D:\Micro\Project\Magnetic_Stirrer\src\RTE-I D:\Micro\Project\Magnetic_Stirrer\src\RTE\Device\STM32F103C8-I D:\Micro\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Micro\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F10X_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x6589615F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections-I D:\Micro\Project\Magnetic_Stirrer\src\RTE-I D:\Micro\Project\Magnetic_Stirrer\src\RTE\Device\STM32F103C8-I D:\Micro\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Micro\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F10X_MD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (D:\Micro\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.4.0\Device\Include\stm32f10x.h)(0x61AD876E)
 I (D:\Micro\Project\Magnetic_Stirrer\src\RTE\RTE_Components.h)(0x6587BE3F)
 I (D:\Micro\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm3.h)(0x5625C51C)
