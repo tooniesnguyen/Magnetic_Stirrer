@@ -28,7 +28,7 @@ void ADC1_2_IRQHandler(void){
 }
 
 void ADC_Init(){
-	
+	RCC->APB1ENR |= (1U<<0);
 	// configure the ADC
 	ADC1->CR2 &= ~(1<<1);							// Single mode
 	//ADC1->CR2 |= 1;
@@ -76,7 +76,6 @@ int main(void){
 	Clock_Init();
 	TIM4_Init();
 	
-//	TIM2_Init();
 	// Step 3: Create EXTI0
 	AFIO->EXTICR[0] |= (1<<0);
 	EXTI->IMR |= (1<<0);
@@ -89,7 +88,6 @@ int main(void){
 	// convert PB1 to analog input (reset state)
 	GPIOB->CRL &= ~(1UL<<6); 
 	ADC_Init();
-
 	// Init systick timer
 	SysTick_Config(9000);   // set systick timer,
 	
@@ -99,8 +97,9 @@ int main(void){
 		
 		
 		TIM4->CCR1 = (adc_value/3.3)*20000;
-		display(count);
-			delay(5);
+		delay(100); // delay 500 ms
+		display((int)(60*(count)/(0.01*390*2)));
+		count = 0;
 
 	}
 }
@@ -113,41 +112,16 @@ void Clock_Init(void)
 	APB1 clock PCLK1 = 72/8 = 9MHz
 */
 	// Set APB1 prescaler to 1/8 
-	RCC->CFGR |= (6<<8);
+//	RCC->CFGR |= (6<<8);
 	// enable GPIOA, GPIOB, AFIO
 	RCC->APB2ENR |= (1U<<0) | (1U<<2) | (1U<<3);
-	// enable TIM6, TIM7, TIM4, TIM3 and TIM2
-	RCC->APB1ENR |= (1U<<4) | (1U<<5) | (1U<<2) | (1U<<1) | (1U<<0);
+	// enable TIM4  and TIM2
+	RCC->APB1ENR |=  (1U<<2) | (1U<<0);
 	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_ADC1EN;
 }
 
 
 
-//void TIM2_Init(void)
-//{ 
-//	// enable clock to TIM2
-//	RCC->APB1ENR |= (1U<<0);
-//	// set TIM2 prescaler to 1/36 -> Ftim2 = 0.5MHz
-//	TIM2->PSC = 36-1;
-//	// config max count value -> interupt every 100ms
-//	TIM2->ARR = 50000;
-//	// reset counter
-//	TIM2->CNT = 0;
-//	// enable timer interrupt
-//	TIM2->DIER |= (1U<<0);
-//	NVIC_EnableIRQ (TIM2_IRQn);
-//	// enable counter 
-//	TIM2->CR1 |= (1<<0);	
-//}
-//int vel;
-//void TIM2_IRQHandler(void) // refresh motor speed every 100ms
-//{ 
-//	TIM2->SR = 0;
-//		vel = count;
-//		display(vel);
-//		count = 0;
-
-//}
 
 void TIM4_Init(void) // TIM4 CH1 PWM output with PB6
 { 
