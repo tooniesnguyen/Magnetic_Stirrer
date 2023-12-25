@@ -74,16 +74,17 @@ int main(void){
 	__enable_irq();
 	NVIC_EnableIRQ(EXTI4_IRQn);  // enable EXTI4 interrupt in NVIC
 	Clock_Init();
-	TIM4_Init();
 	
-//	TIM2_Init();
+	TIM4_Init();
+	TIM2_Init();
+	
 	// Step 3: Create EXTI0
 	AFIO->EXTICR[0] |= (1<<0);
 	EXTI->IMR |= (1<<0);
 	EXTI->FTSR |= (1<<0);
 
 	NVIC_EnableIRQ(EXTI0_IRQn);
-		
+	
 	
 
 	// convert PB1 to analog input (reset state)
@@ -99,7 +100,7 @@ int main(void){
 		
 		
 		TIM4->CCR1 = (adc_value/3.3)*20000;
-		display(count);
+//		display((adc_value/3.3)*100);
 			delay(5);
 
 	}
@@ -123,31 +124,31 @@ void Clock_Init(void)
 
 
 
-//void TIM2_Init(void)
-//{ 
-//	// enable clock to TIM2
-//	RCC->APB1ENR |= (1U<<0);
-//	// set TIM2 prescaler to 1/36 -> Ftim2 = 0.5MHz
-//	TIM2->PSC = 36-1;
-//	// config max count value -> interupt every 100ms
-//	TIM2->ARR = 50000;
-//	// reset counter
-//	TIM2->CNT = 0;
-//	// enable timer interrupt
-//	TIM2->DIER |= (1U<<0);
-//	NVIC_EnableIRQ (TIM2_IRQn);
-//	// enable counter 
-//	TIM2->CR1 |= (1<<0);	
-//}
-//int vel;
-//void TIM2_IRQHandler(void) // refresh motor speed every 100ms
-//{ 
-//	TIM2->SR = 0;
-//		vel = count;
-//		display(vel);
-//		count = 0;
-
-//}
+void TIM2_Init(void)
+{ 
+	// enable clock to TIM2
+	RCC->APB1ENR |= (1U<<0);
+	// set TIM2 prescaler to 1/36 -> Ftim2 = 0.5MHz
+	TIM2->PSC = 36-1;
+	// config max count value -> interupt every 100ms
+	TIM2->ARR = 50000;
+	// reset counter
+	TIM2->CNT = 0;
+	// enable timer interrupt
+	TIM2->DIER |= (1U<<0);
+	NVIC_EnableIRQ (TIM2_IRQn);
+	// enable counter 
+	TIM2->CR1 |= (1<<0);	
+}
+int vel;
+void TIM2_IRQHandler(void) // refresh motor speed every 100ms
+{ 
+	TIM2->SR = 0;
+		vel = 60*(count)/(170*0.01);
+		count = 0;
+		display(vel);
+	
+}
 
 void TIM4_Init(void) // TIM4 CH1 PWM output with PB6
 { 
