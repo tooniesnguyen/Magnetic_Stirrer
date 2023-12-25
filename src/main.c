@@ -112,6 +112,7 @@ void Clock_Init(void)
 	RCC->APB2ENR |= (1U<<0) | (1U<<2) | (1U<<3);
 	// Enable TIM4  and TIM2
 	RCC->APB1ENR |=  (1U<<2) | (1U<<0);
+	// Enable AFIO, Input output port B, ADC1
 	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_ADC1EN;
 }
 
