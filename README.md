@@ -3,7 +3,8 @@
 ## To do task
 - [x] Show number on led
 - [x] Read value from potentiometer
-- [ ] Control velocity from encoder
+- [x] Control velocity from pwm
+- [ ] Read velocity and show on LED
 
 ## Block diagram
 ![image](./images/bd.png)
