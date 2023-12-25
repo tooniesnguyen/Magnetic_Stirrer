@@ -31,7 +31,7 @@ void ADC_Init(){
 	RCC->APB1ENR |= (1U<<0);
 	// configure the ADC
 	ADC1->CR2 &= ~(1<<1);							// Single mode
-	//ADC1->CR2 |= 1;
+
 	ADC1->CR2 &= ~(1<<11);							// Right alignment	
 	ADC1->SMPR2 = 0;							// sampling time: 1.5 cycle 
 	ADC1->SQR3 = 0x00000009;				// Select channel IN9
@@ -59,7 +59,7 @@ int main(void){
 	// Set PA1~PA8 and PB0~PB3 as output
 	GPIOA->CRL = 0x22222224;  // PA1~PA7 are output
 	GPIOA->CRH = 0x44444442;  // PA8 is output
-	GPIOB->CRH = 0x22224444;
+	GPIOB->CRH = 0x22224444;	// PB12~PB15 are output
 	GPIOA->ODR = 0x000001E4;
 	
 	// Set PB5 as input, PB4 as input, PB8-13 output
@@ -76,12 +76,12 @@ int main(void){
 	Clock_Init();
 	TIM4_Init();
 	
-	// Step 3: Create EXTI0
-	AFIO->EXTICR[0] |= (1<<0);
-	EXTI->IMR |= (1<<0);
-	EXTI->FTSR |= (1<<0);
+	// Create EXTI0
+	AFIO->EXTICR[0] |= (1<<0); // PB0 are selected as the source for EXTI
+	EXTI->IMR |= (1<<0);       // enable EXTI0
+	EXTI->FTSR |= (1<<0);	     // detect falling edge
 
-	NVIC_EnableIRQ(EXTI0_IRQn);
+	NVIC_EnableIRQ(EXTI0_IRQn); // enable EXTI0 interrupt in NVIC
 		
 	
 
@@ -107,15 +107,10 @@ int main(void){
 
 void Clock_Init(void)
 {
-/*
-	system clock 72MHz
-	APB1 clock PCLK1 = 72/8 = 9MHz
-*/
-	// Set APB1 prescaler to 1/8 
-//	RCC->CFGR |= (6<<8);
-	// enable GPIOA, GPIOB, AFIO
+
+	// Enable GPIOA, GPIOB, AFIO
 	RCC->APB2ENR |= (1U<<0) | (1U<<2) | (1U<<3);
-	// enable TIM4  and TIM2
+	// Enable TIM4  and TIM2
 	RCC->APB1ENR |=  (1U<<2) | (1U<<0);
 	RCC->APB2ENR |= RCC_APB2ENR_AFIOEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_ADC1EN;
 }
@@ -151,6 +146,7 @@ void EXTI4_IRQHandler(void){
 }
 
 void EXTI0_IRQHandler(void){
+	// clear interrupt flag
 		EXTI->PR |= (1<<1);
 		// Handle interupt
 		count++;
