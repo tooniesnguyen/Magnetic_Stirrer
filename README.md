@@ -1,5 +1,5 @@
 # Magnetic Stirrer
-
+![image](./images/micro.jpg)
 ## Hardware required
 - STM32f103c8t6
 - H-bridge l298n
